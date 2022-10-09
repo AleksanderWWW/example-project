@@ -1,5 +1,9 @@
 __all__ = ["__version__", "Runner", "Tutorial"]
 
+from typing import Union
+
+__version__: Union[str, None]
+
 try:
     from importlib.metadata import (
         PackageNotFoundError,
