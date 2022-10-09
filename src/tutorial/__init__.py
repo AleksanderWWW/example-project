@@ -2,24 +2,33 @@ __all__ = ["__version__", "Runner", "Tutorial"]
 
 from typing import Union
 
-__version__: Union[str, None]
-
 try:
     from importlib.metadata import (
         PackageNotFoundError,
         version,
     )
 
-    try:
-        __version__ = version("example-project")
-    except PackageNotFoundError:
-        # package is not installed
-        __version__ = None
 
 except ModuleNotFoundError:
-    __version__ = "0.0.1"
+
+    from importlib_metadata import (  # type: ignore
+        PackageNotFoundError,
+        version,
+    )
+
 
 from .tutorial_runner import (
     Runner,
     Tutorial,
 )
+
+__version__: Union[str, None]
+
+try:
+    __version__ = version("example-project")
+except PackageNotFoundError:
+    # package is not installed
+    __version__ = "0.0.0"
+except NameError:
+    # importlib import failed
+    __version__ = None
